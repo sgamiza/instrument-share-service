@@ -1,0 +1,67 @@
+{
+    "//": "BTS config",
+    "carriers_config": [{
+            "local_cell_id": 1,
+            "operating_band": 78,
+            "downlink_center_frequency_mhz": 3600,
+            "uplink_center_frequency_mhz": 3600,
+            "carrier_power_dbm": 33,
+            "carrier_sensitivity_level_dbm": -100,   "//": "check EVM < 5",
+            "testmodel": {
+                "standard": "5gnr",
+                "duplex_mode": "tdd",
+                "link_direction": "downlink",
+                "physical_cell_id": 1,
+                "ue_id": 0,
+                "rb_offset": 0,
+                "testmodel_name": "nr-fr1-tm3.1a",    "//": "e-tm3.1a is for LTE",
+                "sub_carrier_spacing_khz": 30,
+                "bandwidth_mhz": 100,
+                "tdd_frame_configuration": "dl_special_ul_7_1_2",              "//": "frameStructure,dl_special_ul_7_1_2",
+                "tdd_special_slot_configuration": "dlsymbl_gp_ulsymbl_6_4_4",  "//": "frameStructure,dlsymbl_gp_ulsymbl_6_4_4",
+                "standard_version": "3gpp_38141_v15_4"
+                }
+            }
+    ],
+
+     "//": "SA config ",
+    "tester_config":{   
+        "screen_capture": true,
+        "analyzer": {
+            "device_address": "127.0.0.1",   "//": "SA fsv",
+            "device_channel": 1,
+            "device_type": "fsv",
+            "calibration_data_file": "calibration_data\\tx_inband_antenna_port_1.cal",
+            "test_clock": {
+                "ext_ref_clock": true,
+                "ext_ref_config": {
+                    "ext_ref_clock_mhz": 10
+                },
+                "ext_trigger": true,
+                "ext_trigger_config": {
+                    "ext_trigger_source": 1,
+                    "ext_trigger_level_volts": 1.4,
+                    "ext_trigger_time_offset_us": 85.9568,     "//": "no need change"
+                }
+            }
+        }
+    },
+
+    "//": "instrument config no change",
+    "signal_quality_config": {
+        "phase_compensation": true,    "//": "need change ,default is true",
+        "extended_results": true,
+        "is_signal_analysis_service_in_use": true,
+        "signal_analysis_service_address": "http://YOUR_ANALYSIS_SERVICE",  "//": "Parse evm ",
+        "is_data_storage_service_in_use": true,
+        "data_storage_service_address": "http://YOUR_DATA_SERVICE"
+    },
+
+
+    "//": "no need for PreL3",
+    "obue_config": {
+        "bs_type": "1-C",
+        "bs_class": "WIDE AREA",
+        "mask_config_file": "config\\default_masks_of_obue.csv"
+    }
+}

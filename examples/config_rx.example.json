@@ -1,0 +1,86 @@
+{
+    "//": "BTS config",
+    "carriers_config": [{
+            "local_cell_id": 1,               "//": "Local cell/carrier id start from 1",
+            "operating_band": 78,             "//": "freqBandIndicatorNR",
+            "downlink_center_frequency_mhz": 3600,
+            "uplink_center_frequency_mhz": 3600,
+            "carrier_power_dbm": 30,
+            "carrier_sensitivity_level_dbm": -50,
+            "testmodel": {
+                "standard": "5gnr",
+                "duplex_mode": "tdd",
+                "link_direction": "uplink",
+                "physical_cell_id": 1,            "//": "physCellId should be 1",
+                "ue_id": 0,
+                "rb_offset": 0,
+                "testmodel_name": "g-fr1-a1-5",
+                "sub_carrier_spacing_khz": 30,
+                "bandwidth_mhz": 100,
+                "tdd_frame_configuration": "dl_special_ul_7_1_2",              "//": "frameStructure",
+                "tdd_special_slot_configuration": "dlsymbl_gp_ulsymbl_6_4_4",  "//": "frameStructure",
+                "standard_version": "3gpp_38141_v15_4"
+            }
+        }
+    ],
+
+    "//": "instrument config -> RxTesterConfigModule",
+    "tester_config": {
+        "is_data_storage_service_in_use": true,   "//": "get arb online",
+        "data_storage_service_address": "http://YOUR_DATA_SERVICE",  "//": "example_waveform.bin",
+        "screen_capture": true,
+        "generator_combinations":{
+            "wanted_signal_generator_1": {
+                "device_address": "127.0.0.1",    "//": "SG SMBV -> SMU",
+                "device_channel": 1,
+                "device_type": "smbv",        "//": "change code for signal generator manager, instrument_control/generator/smbv.py",
+                "modulation_type": "arb",
+                "phase_compensation": true,  "//": "?",
+                "level_limit": 2,
+                "test_clock": {
+                    "ext_ref_clock": true,
+                    "ext_ref_config": {
+                        "ext_ref_clock_mhz": 10,  "//": "?"
+                    },
+                    "ext_trigger": true,
+                    "ext_trigger_config": {
+                        "ext_trigger_source": 1,
+                        "ext_trigger_mode": "arm_auto",
+                        "ext_trigger_time_offset_us": 85.9568
+                    }
+                },
+                "calibration_data_file": "calibration_data\\rx_inband_ws_antenna_port_1.cal"
+            },
+            "wanted_signal_generator_2": null,
+            "interferer_signal_generator_1": null,
+            "interferer_signal_generator_2": null
+        }
+    },
+
+    "//": "instrument config no change",
+    "sensitivity_config": {
+        "start_level_delta": 0,
+        "number_of_antennas": 1,
+        "performance_search_enabled": false,
+        "performance_search_settings": {
+            "search_method": "ws_level",
+            "awgn_on": false,
+            "awgn_level": -80,
+            "search_step_size": 1,
+            "max_search_steps": 20
+        }
+    },
+
+    "//": "read bler from rest API",
+    "uplink_analysis_config":{
+        "analysis_time_ms": 1000,
+        "measure_type": "pusch_bler",
+        "limit": 0.05,
+        "uplink_analyzer_type": "no_control",
+        "dut_control_l3": {
+            "dut_control_service_address": "http://127.0.0.1:8031/",
+            "analysis_type": "fixed"            
+        }
+    }
+    
+}

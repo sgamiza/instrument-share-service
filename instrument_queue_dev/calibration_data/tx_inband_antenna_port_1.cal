@@ -1,0 +1,12 @@
+Routename	1100
+Start	1793.000 MHz
+Stop	2182.000 MHz
+Tester Name	TEST_LAB
+Date	18.08.2020 08:24:41
+SSU	TX SSU / Keithley SSU
+Operator	The Calibrator
+Freq[MHz]	Loss[dB]	Phase[deg]
+1792.999	-0.91	-999.00
+2690.000	-43.17	-999.00
+3600.000	-40.17	-999.00
+3720.000	-40.17	-999.00
